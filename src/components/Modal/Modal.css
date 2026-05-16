@@ -1,0 +1,18 @@
+.modal-content {
+  border: none;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.modal-footer {
+  border-top: 1px solid #e2e8f0;
+}
+
+.modal-backdrop {
+  backdrop-filter: blur(3px);
+}

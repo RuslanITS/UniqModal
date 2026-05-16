@@ -1,0 +1,21 @@
+body {
+  background-color: #f1f5f9;
+}
+
+.container {
+  max-width: 900px;
+}
+
+h2 {
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.btn {
+  transition: 0.2s ease;
+  outline: 1px solid black;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
