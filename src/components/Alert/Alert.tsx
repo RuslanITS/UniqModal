@@ -1,4 +1,5 @@
 import './Alert.css'
+import { motion } from "framer-motion"
 
 type AlertProps = {
   type: string
@@ -22,10 +23,12 @@ const Alert = (props:AlertProps) => {
       <>
         {text}
       </>
-      <button
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
         className="btn-close"
         onClick={onClose}
-      ></button>
+      ></motion.button>
     </div>
   )
 }

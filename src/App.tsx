@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
+import { AnimatePresence, motion } from "framer-motion"
 import Modal from './components/Modal/Modal.tsx'
 import Alert from "./components/Alert/Alert.tsx";
 
@@ -40,7 +41,7 @@ const App = () => {
 
   const showAlert = (type: string) => {
     if (!visibleAlerts.includes(type)) {
-      setVisibleAlerts([...visibleAlerts, type])
+      setVisibleAlerts((prev) => [...prev, type])
     }
   }
 
@@ -56,12 +57,17 @@ const App = () => {
     <div className="container py-5">
       <h2 className="mb-3">Modal</h2>
 
-      <button
+      <motion.button
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{duration: 0.5, type: "spring",}}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
         className="btn btn-primary"
         onClick={() => setShowModal(true)}
       >
         Open Modal
-      </button>
+      </motion.button>
 
       <Modal
         show={showModal}
@@ -69,36 +75,46 @@ const App = () => {
         title="Modal title"
         buttons={buttonsModal}
         content="Some modal content"
-      >
-      </Modal>
+      />
 
       <h2 className="mb-4 mt-2">Alerts</h2>
 
       <div className="d-flex flex-wrap gap-2 mb-4">
         {alerts.map((alert) => (
-          <button
+          <motion.button
+            whileHover={{scale: 1.2,}}
+            whileTap={{scale: 0.8,}}
+            transition={{type: "spring", stiffness: 400, damping: 10,}}
+            onHoverStart={() => console.log('hover started!')}
             key={alert.type}
             className={`btn btn-${alert.type}`}
             onClick={() => showAlert(alert.type)}
           >
-            Show {alert.type}
-          </button>
+            {alert.type} Alert
+          </motion.button>
         ))}
       </div>
 
       <div className="d-flex flex-column gap-3">
-        {alerts.map((alert) => (
-          visibleAlerts.includes(alert.type) && (
-            <Alert
-              key={alert.type}
-              type={alert.type}
-              text={alert.text}
-              onClose={() =>
-                closeAlert(alert.type)
-              }
-            />
-          )
-        ))}
+        <AnimatePresence>
+          {alerts.map((alert) => (
+            visibleAlerts.includes(alert.type) && (
+              <motion.div
+                key={alert.type}
+                initial={{ opacity: 0, x: 100, scale: 0.8,}}
+                animate={{ opacity: 1, x: 0, scale: 1,}}
+                exit={{opacity: 0, x: 300, scale: 0.5,}}
+                transition={{duration: 0.2,}}
+              >
+                <Alert
+                  type={alert.type}
+                  text={alert.text}
+                  onClose={() => closeAlert(alert.type)}
+                />
+              </motion.div>
+            )
+          ))}
+        </AnimatePresence>
       </div>
     </div>
   )

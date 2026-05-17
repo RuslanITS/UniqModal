@@ -16,6 +16,3 @@ h2 {
   outline: 1px solid black;
 }
 
-.btn:hover {
-  transform: translateY(-2px);
-}

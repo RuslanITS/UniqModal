@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import BackDrop from "../BackDrop/BackDrop.tsx";
 import './Modal.css'
 
@@ -24,14 +25,20 @@ const Modal = (props: ModalProps) => {
   } = props
 
   return (
-    <>
+    <AnimatePresence>
       {show && (
         <>
-          <div
+          <motion.div
             className="modal d-block modal-index"
             tabIndex={-1}
             style={{ zIndex: 1055 }}
             onClick={onClose}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 0.3, }}
+            transition={{
+              duration: 0.3,
+            }}
           >
             <div
               className="modal-dialog"
@@ -69,11 +76,11 @@ const Modal = (props: ModalProps) => {
 
               </div>
             </div>
-          </div>
+          </motion.div>
           <BackDrop/>
         </>
       )}
-    </>
+    </AnimatePresence>
   )
 }
 
